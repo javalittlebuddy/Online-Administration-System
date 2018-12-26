@@ -26,7 +26,7 @@
                 <version>${flyway.version}</version>
                 <configuration>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost:5431/user_dev</url>
+                    <url>jdbc:postgresql://localhost:5431/ats_dev</url>
                     <user>blair</user>
                     <password>1234</password>
                     <locations>
