@@ -14,10 +14,27 @@
         <spring.version>[5.0.7,)</spring.version>
         <org.slf4j-version>1.7.25</org.slf4j-version>
         <hibernate.version>5.3.1.Final</hibernate.version>
+        <flyway.version>5.2.1</flyway.version>
     </properties>
 
     <build>
         <plugins>
+            <!--flyway database migration -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost:5431/user_dev</url>
+                    <user>blair</user>
+                    <password>1234</password>
+                    <locations>
+                        <location>db/migration</location>
+                    </locations>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>

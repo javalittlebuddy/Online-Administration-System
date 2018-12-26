@@ -1,6 +1,6 @@
 package com.ascending.blair.domain;
 
-import com.sun.istack.internal.NotNull;
+//import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
 
@@ -23,7 +23,7 @@ public class User {
     private String lastName;
 
     @Column(name = "email", unique = true)
-    @NotNull
+   // @NotNull
     private String email;
 
     @Column(name = "password")
