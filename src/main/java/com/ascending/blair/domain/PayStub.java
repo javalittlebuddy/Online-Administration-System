@@ -11,25 +11,19 @@ public class PayStub {
     @SequenceGenerator(name = "paystubs_id_seq", sequenceName = "paystubs_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "user_id", unique = true)
-    private Long userId;
-
     @Column(name = "gross_wage")
     private Long grossWage;
 
     @Column(name = "net_pay")
     private Long netPay;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
     public Long getId() {
         return id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public Long getGrossWage() {
@@ -46,5 +40,13 @@ public class PayStub {
 
     public void setNetPay(Long netPay) {
         this.netPay = netPay;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

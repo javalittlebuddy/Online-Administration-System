@@ -23,11 +23,18 @@ public class User {
     private String lastName;
 
     @Column(name = "email", unique = true)
-   // @NotNull
+//    @NotNull
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "paystub", cascade = CascadeType.ALL)
+    private PayStub payStub;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public Long getId() {
         return id;
@@ -71,5 +78,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public PayStub getPayStub() {
+        return payStub;
+    }
+
+    public void setPayStub(PayStub payStub) {
+        this.payStub = payStub;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
