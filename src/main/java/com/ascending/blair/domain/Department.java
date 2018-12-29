@@ -3,8 +3,9 @@ package com.ascending.blair.domain;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Configuration
+@Entity
 @Table(name = "departments")
 public class Department {
 
@@ -16,8 +17,8 @@ public class Department {
     @Column(name = "department_name")
     private String departmentName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private User user;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
+    private List<User> user;
 
     public Long getId() {
         return id;
@@ -31,11 +32,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public User getUser() {
+    public List<User> getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(List<User> user) {
         this.user = user;
     }
 }

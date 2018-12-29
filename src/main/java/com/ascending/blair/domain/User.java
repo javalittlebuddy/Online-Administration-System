@@ -3,6 +3,7 @@ package com.ascending.blair.domain;
 //import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,8 +30,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "paystub", cascade = CascadeType.ALL)
-    private PayStub payStub;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<PayStub> payStub;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
@@ -38,6 +39,10 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -80,11 +85,11 @@ public class User {
         this.password = password;
     }
 
-    public PayStub getPayStub() {
+    public List<PayStub> getPayStub() {
         return payStub;
     }
 
-    public void setPayStub(PayStub payStub) {
+    public void setPayStub(List<PayStub> payStub) {
         this.payStub = payStub;
     }
 

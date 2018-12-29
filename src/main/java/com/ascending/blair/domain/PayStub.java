@@ -1,6 +1,7 @@
 package com.ascending.blair.domain;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "paystubs")
@@ -12,10 +13,10 @@ public class PayStub {
     private Long id;
 
     @Column(name = "gross_wage")
-    private Long grossWage;
+    private BigDecimal grossWage;
 
     @Column(name = "net_pay")
-    private Long netPay;
+    private BigDecimal netPay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -26,19 +27,19 @@ public class PayStub {
         return id;
     }
 
-    public Long getGrossWage() {
+    public BigDecimal getGrossWage() {
         return grossWage;
     }
 
-    public void setGrossWage(Long grossWage) {
+    public void setGrossWage(BigDecimal grossWage) {
         this.grossWage = grossWage;
     }
 
-    public Long getNetPay() {
+    public BigDecimal getNetPay() {
         return netPay;
     }
 
-    public void setNetPay(Long netPay) {
+    public void setNetPay(BigDecimal netPay) {
         this.netPay = netPay;
     }
 

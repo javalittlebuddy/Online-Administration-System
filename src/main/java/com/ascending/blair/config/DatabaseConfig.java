@@ -27,17 +27,17 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "com.ascending.blair.repository")
 public class DatabaseConfig {
 
-    @Value("#{ databaseProperties['database.serverName']}")
-    protected String databaseUrl="jdbc:postgresql://localhost:5431/ats";
+    @Value("#{ applicationProperties['database.serverName']}")
+    protected String databaseUrl;
 
-    @Value("#{ databaseProperties['database.userName']}")
-    protected String databaseUserName="blair";
+    @Value("#{ applicationProperties['database.userName']}")
+    protected String databaseUserName;
 
-    @Value("#{ databaseProperties['database.password']}")
-    protected String databasePassword="1234";
+    @Value("#{ applicationProperties['database.password']}")
+    protected String databasePassword;
 
-    @Value("#{ databaseProperties['database.dataSourceClassName']}")
-    protected String driverClassName="org.postgresql.ds.PGSimpleDataSource";
+    @Value("#{ applicationProperties['database.dataSourceClassName']}")
+    protected String driverClassName;
 
     private BasicDataSource createDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
@@ -62,7 +62,6 @@ public class DatabaseConfig {
     }
 
     @Bean(name="entityManagerFactory")
-    @DependsOn("flyway")
     @Profile("unit")
     public LocalContainerEntityManagerFactoryBean entityUnitManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean factoryBean = setUpLocalContainerEntityManagerFactoryBean();
@@ -73,7 +72,7 @@ public class DatabaseConfig {
         Properties props = new Properties();
         props.put("hibernate.dialect", "org.hibernate.spatial.dialect.postgis.PostgisDialect");
         props.put("hibernate.hbm2ddl.auto", "validate");
-        props.put("hibernate.physical_naming_strategy", "io.ascending.training.extend.hibernate.ImprovedNamingStrategy");
+//        props.put("hibernate.physical_naming_strategy", "io.ascending.training.extend.hibernate.ImprovedNamingStrategy");
         props.put("hibernate.connection.charSet","UTF-8");
         props.put("hibernate.show_sql","true");
         props.put("org.hibernate.flushMode","ALWAYS");
