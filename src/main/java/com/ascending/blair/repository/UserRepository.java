@@ -20,4 +20,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u where UPPER(u.firstName) = UPPER(?1) and UPPER(u.lastName) = UPPER(?2)")
     User findByLastnameAndFirstnameIgnoreCase(String firstName, String lastName);
 
+    @Query("select u from User u join fetch u.department where u.department.id = ?1")
+    List<User> findAllUserByDepartmentId(Long id);
+
 }

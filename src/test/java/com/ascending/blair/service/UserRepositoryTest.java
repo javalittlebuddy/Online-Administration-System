@@ -44,4 +44,11 @@ public class UserRepositoryTest {
 
     }
 
+
+//    @Test
+//    @Transactional
+//    public void findAllUserByDepartmentIdTest(){
+//        assertTrue(true);
+//    }
+
 }

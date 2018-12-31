@@ -14,6 +14,6 @@ public interface PaystubRepository extends CrudRepository<PayStub, Long> {
     List<PayStub> findAll();
 
     @Query("select p from PayStub p join fetch p.user where p.user.id = ?1")
-    List<PayStub> findByUserId(Long userId);
+    List<PayStub> findAllPaystubsByUserId(Long userId);
 
 }

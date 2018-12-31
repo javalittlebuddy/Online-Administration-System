@@ -27,6 +27,10 @@ public class PayStub {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public BigDecimal getGrossWage() {
         return grossWage;
     }
