@@ -62,7 +62,7 @@ public class DatabaseConfig {
     }
 
     @Bean(name="entityManagerFactory")
-    @Profile("unit")
+//    @Profile("unit")
     public LocalContainerEntityManagerFactoryBean entityUnitManagerFactoryBean() {
         LocalContainerEntityManagerFactoryBean factoryBean = setUpLocalContainerEntityManagerFactoryBean();
 

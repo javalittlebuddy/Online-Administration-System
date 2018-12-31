@@ -32,7 +32,6 @@ public class UserRepositoryTest {
 //        assertTrue(false);
 //        User user = userRepository.findByEmailIgnoreCase("ss@gmail.com");
         User user = new User();
-        user.setId(1L);
         user.setFirstName("Sam");
         user.setLastName("Smith");
         user.setEmail("ss@gmail.com");
