@@ -2,6 +2,8 @@ package com.ascending.blair.domain;
 
 //import com.sun.istack.internal.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class User {
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<PayStub> payStub;
 
     @ManyToOne(fetch = FetchType.LAZY)
