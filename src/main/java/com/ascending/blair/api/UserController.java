@@ -2,6 +2,7 @@ package com.ascending.blair.api;
 
 import com.ascending.blair.domain.User;
 import com.ascending.blair.repository.UserRepository;
+import com.ascending.blair.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +23,30 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUserList(){
         logger.debug("list users");
-        return userRepository.findAll(); // so far return an empty list, then connect logic
+        return userService.findAll(); // so far return an empty list, then connect logic
     }
 
     @RequestMapping(value = "/{Id}", method = RequestMethod.GET)
     public User findUserById(@PathVariable("Id") Long userId){
         logger.debug("id is: " + userId);
-        return userRepository.findById(userId).get();
+        return userService.findById(userId);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public User generateUser(@RequestBody User user){
+        return userService.save(user);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"lastName"})
+    public List<User> getUserByLastName(@RequestParam(value = "lastName") String lastName){
+        logger.debug("last name is: " + lastName);
+        return userService.findByLastName(lastName);
     }
 
 }

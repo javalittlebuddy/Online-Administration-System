@@ -23,4 +23,9 @@ public interface UserRepository extends CrudRepository<User, Long> {
     @Query("select u from User u join fetch u.department where u.department.id = ?1")
     List<User> findAllUserByDepartmentId(Long id);
 
+    @Query("select u from User u where UPPER(u.lastName) = UPPER(?1)")
+    List<User> findByLastName(String lastName);
+
+//    List<User> findByLastName(String lastName);
+
 }
