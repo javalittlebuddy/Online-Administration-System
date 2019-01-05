@@ -1,5 +1,6 @@
 package com.ascending.blair.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Department {
     private String departmentName;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "department", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<User> user;
 
     public Long getId() {

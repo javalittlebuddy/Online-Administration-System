@@ -64,7 +64,8 @@ public class DatabaseConfig {
     @Bean(name="entityManagerFactory")
 //    @Profile("unit")
     public LocalContainerEntityManagerFactoryBean entityUnitManagerFactoryBean() {
-        LocalContainerEntityManagerFactoryBean factoryBean = setUpLocalContainerEntityManagerFactoryBean();
+       // LocalContainerEntityManagerFactoryBean factoryBean = setUpLocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 
         factoryBean.setDataSource(getDataSource());
         factoryBean.setPackagesToScan(new String[] { "com.ascending.blair.domain","com.ascending.blair.repository" });
@@ -82,14 +83,14 @@ public class DatabaseConfig {
         return factoryBean;
     }
 
-    private LocalContainerEntityManagerFactoryBean setUpLocalContainerEntityManagerFactoryBean(){
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setDataSource(getDataSource());
-        factoryBean.setPackagesToScan(new String[] { "com.ascending.blair.domain","com.ascending.blair.repository" });
-        factoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        return factoryBean;
-    }
+//    private LocalContainerEntityManagerFactoryBean setUpLocalContainerEntityManagerFactoryBean(){
+//        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+//        factoryBean.setDataSource(getDataSource());
+//        factoryBean.setPackagesToScan(new String[] { "com.ascending.blair.domain","com.ascending.blair.repository" });
+//        factoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+//        factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+//        return factoryBean;
+//    }
 
     @Bean(name="transactionManager")
     public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory, @Autowired DataSource dataSource) {

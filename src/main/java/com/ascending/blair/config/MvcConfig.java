@@ -17,7 +17,7 @@ import java.util.List;
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.ascending.blair.api")
-@Import({SwaggerConfig.class})
+//@Import({SwaggerConfig.class})
 public class MvcConfig implements WebMvcConfigurer {
 
     @Override

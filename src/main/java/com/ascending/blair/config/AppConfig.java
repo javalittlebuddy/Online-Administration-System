@@ -11,7 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 
 @Configuration
 @ComponentScan(basePackages = "com.ascending.blair",
-        excludeFilters = @ComponentScan.Filter(type= FilterType.REGEX,pattern = "com.ascending.blair.project.api.*"))
+        excludeFilters = @ComponentScan.Filter(type= FilterType.REGEX,pattern = "com.ascending.blair.api.*"))
 public class AppConfig {
 
     @Autowired
