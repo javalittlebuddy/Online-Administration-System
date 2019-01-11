@@ -62,9 +62,31 @@ public class DatabaseConfig {
     }
 
     @Bean(name="entityManagerFactory")
-//    @Profile("unit")
+    @Profile("unit")
     public LocalContainerEntityManagerFactoryBean entityUnitManagerFactoryBean() {
        // LocalContainerEntityManagerFactoryBean factoryBean = setUpLocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+
+        factoryBean.setDataSource(getDataSource());
+        factoryBean.setPackagesToScan(new String[] { "com.ascending.blair.domain","com.ascending.blair.repository" });
+        factoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        Properties props = new Properties();
+        props.put("hibernate.dialect", "org.hibernate.spatial.dialect.postgis.PostgisDialect");
+        props.put("hibernate.hbm2ddl.auto", "validate");
+//        props.put("hibernate.physical_naming_strategy", "io.ascending.training.extend.hibernate.ImprovedNamingStrategy");
+        props.put("hibernate.connection.charSet","UTF-8");
+        props.put("hibernate.show_sql","true");
+        props.put("org.hibernate.flushMode","ALWAYS");
+//            <property name="hibernate.ejb.interceptor" value="com.overture.family.repository.jpa.DBNullsFirstLastInteceptor"/>
+        factoryBean.setJpaProperties(props);
+
+        return factoryBean;
+    }
+
+    @Bean(name="entityManagerFactory")
+    @Profile({"dev", "test", "stage", "prod"})
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+        // LocalContainerEntityManagerFactoryBean factoryBean = setUpLocalContainerEntityManagerFactoryBean();
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
 
         factoryBean.setDataSource(getDataSource());
