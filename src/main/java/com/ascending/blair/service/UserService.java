@@ -2,8 +2,10 @@ package com.ascending.blair.service;
 
 import com.ascending.blair.domain.User;
 import com.ascending.blair.repository.UserRepository;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,4 +31,22 @@ public class UserService{
     public List<User> findByLastName(String lastName){
         return userRepository.findByLastName(lastName);
     }
+
+    @Transactional(readOnly = true)
+    public User findByUsername(String username) throws NotFoundException {
+
+        if (username == null || "".equals(username.trim())){
+            throw new NullPointerException();
+        }
+        User user = userRepository.findByUsername(username);
+//
+//        if (user == null){
+//            throw new NotFoundException();
+//        }
+        return user;
+    }
+
+//    public User createUser(User user){
+//
+//    }
 }

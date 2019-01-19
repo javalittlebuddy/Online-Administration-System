@@ -28,4 +28,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 //    List<User> findByLastName(String lastName);
 
+    @Query("select u from User u where u.username = ?1")
+    User findByUsername(String username);
+
+
 }
