@@ -4,6 +4,8 @@ import com.ascending.blair.domain.User;
 import com.ascending.blair.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,7 @@ public class UserService{
     }
 
     @Transactional(readOnly = true)
-    public User findByUsername(String username) throws NotFoundException {
+    public User findByUsername(String username) {
 
         if (username == null || "".equals(username.trim())){
             throw new NullPointerException();
@@ -46,7 +48,15 @@ public class UserService{
         return user;
     }
 
-//    public User createUser(User user){
-//
-//    }
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    public User saveWithEncoder(User user){
+
+        String encryptedPassword = passwordEncoder().encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        return userRepository.save(user);
+    }
 }

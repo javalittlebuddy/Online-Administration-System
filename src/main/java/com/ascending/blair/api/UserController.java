@@ -48,7 +48,16 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST)
     public User generateUser(@RequestBody User user){
-        return userService.save(user);
+   //     return userService.save(user);
+        User newUser = new User();
+
+        newUser.setUsername(user.getUsername());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setPassword(user.getPassword());
+        newUser.setEmail(user.getEmail());
+
+        return userService.saveWithEncoder(newUser);
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"lastName"})
@@ -56,5 +65,7 @@ public class UserController {
         logger.debug("last name is: " + lastName);
         return userService.findByLastName(lastName);
     }
+
+
 
 }

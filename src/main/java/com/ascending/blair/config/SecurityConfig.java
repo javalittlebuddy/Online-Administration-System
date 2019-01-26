@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .formLogin();
 
         // add authantication
-        http.csrf().disable().authorizeRequests().antMatchers("/api/users/login", "/api/user/login", "/api/user/signup", "/api/users/signup").permitAll()
+        http.csrf().disable().authorizeRequests().antMatchers("/api/users/login", "/api/user/login", "/api/user/signup", "/api/users/signup", "/api/users").permitAll()
                 .and()
                     .authorizeRequests().antMatchers("/api/**").hasAnyRole("REGISTERED_USER", "ADMIN")
                 .and()

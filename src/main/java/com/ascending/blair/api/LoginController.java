@@ -1,6 +1,7 @@
 package com.ascending.blair.api;
 
 import com.ascending.blair.domain.User;
+import com.ascending.blair.extend.security.JwtTokenUtil;
 import com.ascending.blair.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,11 +10,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,12 @@ public class LoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    private UserService userService;
+
 
 //    @Autowired
 //    private UserService userService;
@@ -37,7 +46,7 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public User loginInfo(@RequestBody Map<String, String> json){
+    public String loginInfo(@RequestBody Map<String, String> json, Device device){
 //        logger.debug("Username is " + json.get("username") + ", password is " + json.get("password"));
 //
 //        return new User();
@@ -48,10 +57,16 @@ public class LoginController {
                     json.get("password")
             );
             final Authentication authentication = authenticationManager.authenticate(notFullyAuthenticated);
+
+            final UserDetails userDetails = userService.findByUsername(json.get("username"));
+            final String token = jwtTokenUtil.generateToken(userDetails, device);
+
+            return token;
         } catch (AuthenticationException ex){
             logger.debug("authentication failure, please check your password.\n" + "You entered Username is " + json.get("username") + ", password is " + json.get("password"));
+            return null;
         }
-        return new User();
+
     }
 
 }
