@@ -1,12 +1,13 @@
 package com.ascending.blair.domain;
 
-//import com.sun.istack.internal.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(name = "email", unique = true)
-//    @NotNull
+    @NotNull
     private String email;
 
     @Column(name = "password")
@@ -42,6 +43,10 @@ public class User implements UserDetails {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Authority> authority;
 
     public Long getId() {
         return id;
@@ -126,5 +131,13 @@ public class User implements UserDetails {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public List<Authority> getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(List<Authority> authority) {
+        this.authority = authority;
     }
 }

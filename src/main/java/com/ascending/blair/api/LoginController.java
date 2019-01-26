@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -46,7 +47,7 @@ public class LoginController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public String loginInfo(@RequestBody Map<String, String> json, Device device){
+    public ResponseEntity<?> loginInfo(@RequestBody Map<String, String> json, Device device){
 //        logger.debug("Username is " + json.get("username") + ", password is " + json.get("password"));
 //
 //        return new User();
@@ -61,7 +62,10 @@ public class LoginController {
             final UserDetails userDetails = userService.findByUsername(json.get("username"));
             final String token = jwtTokenUtil.generateToken(userDetails, device);
 
-            return token;
+            Map<String, String> jsonToken = new HashMap<>();
+            jsonToken.put("Token", token);
+            return ResponseEntity.ok(jsonToken);
+
         } catch (AuthenticationException ex){
             logger.debug("authentication failure, please check your password.\n" + "You entered Username is " + json.get("username") + ", password is " + json.get("password"));
             return null;

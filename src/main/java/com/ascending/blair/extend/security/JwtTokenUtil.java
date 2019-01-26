@@ -4,6 +4,7 @@ import com.ascending.blair.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class JwtTokenUtil {
     private static final String AUDIENCE_WEB = "web";
     private static final String AUDIENCE_TABLET = "tablet";
     private static final String AUDIENCE_MOBILE = "mobile";
+
 
     private String secret = "secret";
 
