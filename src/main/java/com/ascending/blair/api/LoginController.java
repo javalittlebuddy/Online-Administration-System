@@ -63,7 +63,7 @@ public class LoginController {
             final String token = jwtTokenUtil.generateToken(userDetails, device);
 
             Map<String, String> jsonToken = new HashMap<>();
-            jsonToken.put("Token", token);
+            jsonToken.put("token", token);
             return ResponseEntity.ok(jsonToken);
 
         } catch (AuthenticationException ex){

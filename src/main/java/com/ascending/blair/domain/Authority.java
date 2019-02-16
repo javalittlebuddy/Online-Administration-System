@@ -20,6 +20,9 @@ public class Authority {
     @JoinColumn(name="user_id")
     private User user;
 
+    public Authority(){
+
+    }
 
     public Authority(User user, String role){
         this.user = user;

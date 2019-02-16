@@ -1,6 +1,9 @@
 package com.ascending.blair.service;
 
+import com.ascending.blair.domain.Authority;
 import com.ascending.blair.domain.User;
+import com.ascending.blair.enumdef.AuthorityRole;
+import com.ascending.blair.repository.AuthorityRepository;
 import com.ascending.blair.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,9 @@ public class UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AuthorityRepository authorityRepository;
 
     public List<User> findAll(){
         //List<User> users = Lists.newArrayList(userRepository.findAll());
@@ -52,10 +58,28 @@ public class UserService{
         return new BCryptPasswordEncoder();
     }
 
-    public User saveWithEncoder(User user){
+    public User createUser(User user){
 
         String encryptedPassword = passwordEncoder().encode(user.getPassword());
         user.setPassword(encryptedPassword);
+        user.setUsername(user.getUsername());
+        user.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+        user.setPassword(user.getPassword());
+        user.setEmail(user.getEmail());
+
+        save(user);
+        addAuthority(user, AuthorityRole.ROLE_REGISTERED_USER);
+        save(user);
+
+        return user;
+    }
+
+    public User addAuthority(User user, String role){
+        Authority authority = new Authority();
+        authority.setRole(role);
+        authority.setUser(user);
+        authorityRepository.save(authority);
 
         return userRepository.save(user);
     }
