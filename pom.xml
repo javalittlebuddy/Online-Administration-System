@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.ascending.blair</groupId>
-    <artifactId>car-dealer-spring-mvc</artifactId>
+    <artifactId>admin-system</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>car-dealer-spring-mvc</name>
+    <name>Online-Administration-System</name>
     <properties>
         <java-version>1.8</java-version>
         <spring.version>5.0.6.RELEASE</spring.version>
@@ -17,6 +17,8 @@
         <flyway.version>5.2.1</flyway.version>
         <fasterxml-jackson.version>2.9.8</fasterxml-jackson.version>
         <swagger.version>2.9.2</swagger.version>
+        <aws.sdk.version>1.11.360</aws.sdk.version>
+        <mockito.version>2.0.2-beta</mockito.version>
     </properties>
 
     <build>
@@ -321,6 +323,21 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20180813</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>${aws.sdk.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
         </dependency>
 
 
