@@ -70,5 +70,18 @@ public class StorageServiceTest {
         verify(s3, times(1)).putObject(bucketName, keyName, file);
     }
 
+    @Test
+    @Transactional
+    public void getObjectTest(){
+        String keyName = "test_putObject";
+        String bucketName = "ats-admin-dev";
+        storageService.getObject(keyName);
+        verify(s3, times(1)).getObject(bucketName, keyName);
+        storageService.getObject(null);
+        verify(s3, times(1)).getObject(bucketName, keyName);
+    }
+
+
+
 
 }
