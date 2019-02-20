@@ -2,13 +2,17 @@ package com.ascending.blair.service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.List;
 
 public class StorageService {
 
@@ -52,6 +56,14 @@ public class StorageService {
         return s3.getObject(bucket, S3key);
     }
 
+    public ObjectListing listObjects(String bucket){
+        ObjectListing images = s3.listObjects(bucket);
+        //List<S3ObjectSummary> list = images.getObjectSummaries();
+
+        return images;
+
+    }
+
     public void uploadObject(String keyName, String filePath, String bucketName){
         logger.debug("Uploading %s to S3 bucket %s...\n", filePath, bucketName);
         final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
@@ -61,4 +73,6 @@ public class StorageService {
             logger.debug(e.getErrorMessage());
         }
     }
+
+
 }

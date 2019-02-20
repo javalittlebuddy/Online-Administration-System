@@ -2,6 +2,7 @@ package com.ascending.blair.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.ascending.blair.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
@@ -81,7 +83,13 @@ public class StorageServiceTest {
         verify(s3, times(1)).getObject(bucketName, keyName);
     }
 
-
+    @Test
+    @Transactional
+    public void ListObjectsTest(){
+        String bucketName = "ats-admin-dev";
+        storageService.listObjects(bucketName);
+        verify(s3, times(1)).listObjects(bucketName);
+    }
 
 
 }
