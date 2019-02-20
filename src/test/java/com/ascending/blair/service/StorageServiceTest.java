@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -85,10 +86,21 @@ public class StorageServiceTest {
 
     @Test
     @Transactional
-    public void ListObjectsTest(){
+    public void listObjectsTest(){
         String bucketName = "ats-admin-dev";
         storageService.listObjects(bucketName);
         verify(s3, times(1)).listObjects(bucketName);
+    }
+
+    @Test
+    @Transactional
+    public void deleteObjectTest(){
+        String keyName = "test_putObject";
+        String bucketName = "ats-admin-dev";
+        storageService.deleteObject(bucketName, keyName);
+        verify(s3, times(1)).deleteObject(bucketName, keyName);
+        storageService.deleteObject(bucketName, null);
+        verify(s3, times(1)).deleteObject(bucketName, keyName);
     }
 
 

@@ -59,9 +59,14 @@ public class StorageService {
     public ObjectListing listObjects(String bucket){
         ObjectListing images = s3.listObjects(bucket);
         //List<S3ObjectSummary> list = images.getObjectSummaries();
-
         return images;
 
+    }
+
+    public void deleteObject(String bucket, String S3key){
+        if (S3key != null){
+            s3.deleteObject(bucket, S3key);
+        }
     }
 
     public void uploadObject(String keyName, String filePath, String bucketName){
