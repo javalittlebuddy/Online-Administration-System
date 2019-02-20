@@ -5,10 +5,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.ascending.blair.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 
@@ -30,11 +27,12 @@ public class AppConfig {
     }
 
     @Bean
+    @Profile({"dev", "test", "stage", "prod"})
     public StorageService initStorageService(){
 
         final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
         StorageService storageService = new StorageService(s3);
-        storageService.setBucket("ats_dev");
+        storageService.setBucket("ats-admin-dev");
         return storageService;
     }
 }
