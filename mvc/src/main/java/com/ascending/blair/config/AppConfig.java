@@ -2,7 +2,10 @@ package com.ascending.blair.config;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.ascending.blair.service.StorageService;
+import com.ascending.blair.service.jms.MessageSQSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.*;
@@ -34,5 +37,13 @@ public class AppConfig {
         StorageService storageService = new StorageService(s3);
         storageService.setBucket("ats-admin-dev");
         return storageService;
+    }
+
+    @Bean
+    @Profile({"dev", "test", "stage", "prod"})
+    public MessageSQSService initAmzonSQS(){
+        final AmazonSQS sqs = AmazonSQSClientBuilder.defaultClient();
+        MessageSQSService messageSQSService = new MessageSQSService(sqs);
+        return messageSQSService;
     }
 }
